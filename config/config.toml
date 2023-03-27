@@ -1,0 +1,13 @@
+[mysql]
+host = "127.0.0.1"
+port = 3306
+database = "demo"
+username = "root"
+password = "Wayqyy52"
+charset = "utf8mb4"
+parse_time = true
+loc = "Local"
+
+[server]
+ip = "127.0.0.1"
+port = 6644
