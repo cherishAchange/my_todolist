@@ -15,7 +15,8 @@ func InitRouter() *gin.Engine {
 
 	baseGroup := r.Group("api")
 
-	baseGroup.POST("/user/register", middleware.SHAMiddleWare(), user_account.UserRegisterHandler)
+	baseGroup.POST("/user/register", middleware.BindParamsToCTX(), user_account.UserRegisterHandler)
+	baseGroup.POST("user/login", middleware.BindParamsToCTX(), user_account.UserLoginHandler)
 
 	return r
 }

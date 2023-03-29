@@ -1,7 +1,7 @@
 package user_account
 
 import (
-	"fmt"
+	"my_todolist/middleware"
 	"my_todolist/service/user_account"
 	"net/http"
 
@@ -15,13 +15,10 @@ type UserRegisterResponse struct {
 }
 
 func UserRegisterHandler(c *gin.Context) {
-	username := c.Query("username")
-	rowVal, _ := c.Get("password")
-	password, ok := rowVal.(string)
+	username := middleware.RegisterParams.Username
+	password := middleware.RegisterParams.Password
 
-	fmt.Println("username", c.PostForm("username"))
-
-	if !ok {
+	if password == "" {
 		c.JSON(http.StatusOK, UserRegisterResponse{
 			StatusCode: 1,
 			StatusMsg:  "密码解析出错",
