@@ -8,13 +8,13 @@ import (
 )
 
 type RegisterParamsStruct struct {
-	Username string `json:"username" xml:"username" binding:"required"`
-	Password string `json:"password" xml:"password" binding:"required"`
+	Username string `json:"username" binding:"required"`
+	Password string `json:"password" binding:"required"`
 }
 
 type LoginParamsStruct struct {
-	LoginUsername string `json:"loginUsername" xml:"loginUsername" binding:"required"`
-	LoginPassword string `json:"loginPassword" xml:"loginPassword" binding:"required"`
+	LoginUsername string `json:"loginUsername" binding:"required"`
+	LoginPassword string `json:"loginPassword" binding:"required"`
 }
 
 var RegisterParams RegisterParamsStruct

@@ -14,14 +14,14 @@ var jwtKey = []byte("my_todolist")
 const TOKENNAME string = "todolist_token"
 
 type Claims struct {
-	UserId int64
+	UserId uint
 	jwt.StandardClaims
 }
 
 func ReleaseToken(user model.UserLogin) (string, error) {
 	expirationTime := time.Now().Add(7 * 24 * time.Hour)
 	claims := &Claims{
-		UserId: int64(user.UserInfoID),
+		UserId: user.UserInfoID,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 			IssuedAt:  time.Now().Unix(),
