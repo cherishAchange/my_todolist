@@ -18,7 +18,7 @@ func InitRouter() *gin.Engine {
 
 	baseGroup.POST("/user/register", middleware.BindParamsToCTX(), user_account.UserRegisterHandler)
 	baseGroup.POST("/user/login", middleware.BindParamsToCTX(), user_account.UserLoginHandler)
-	baseGroup.POST("/task/create", tasks.CreateTasks)
+	baseGroup.POST("/task/create", middleware.JWTMiddleware(), tasks.CreateTasks)
 
 	return r
 }

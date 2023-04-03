@@ -39,3 +39,7 @@ func (t *TaskDAO) Create(task *Task) error {
 
 	return DB.Create(task).Error
 }
+
+func (t *TaskDAO) Follow() error {
+	return DB.Updates("followUsers").Error
+}

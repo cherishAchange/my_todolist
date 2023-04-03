@@ -19,7 +19,10 @@ func UserLoginHandler(c *gin.Context) {
 	}
 
 	userLogin := model.NewUserLoginDao()
-	if !userLogin.IsUserExistByUsername(username) {
+	if isExist, err := userLogin.IsUserExistByUsername(username); !isExist {
+		if err != nil && err != gorm.ErrRecordNotFound {
+			c.JSON(http.StatusOK, err)
+		}
 		c.JSON(http.StatusOK, middleware.GetRes(1, "不存在该用户，请先注册"))
 		return
 	}

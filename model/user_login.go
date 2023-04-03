@@ -29,15 +29,11 @@ func NewUserLoginDao() *UserLoginDAO {
 	return userLoginDao
 }
 
-func (u *UserLoginDAO) IsUserExistByUsername(username string) bool {
+func (u *UserLoginDAO) IsUserExistByUsername(username string) (bool, error) {
 	var userLogin UserLogin
 	err := DB.Where("username=?", username).First(&userLogin).Error
 
-	// 如果此处错误不是ErrRecordNotFound，则需要中端流程
-	if err != nil && err != gorm.ErrRecordNotFound {
-		panic(err)
-	}
-	return userLogin.ID != 0
+	return userLogin.ID != 0, err
 }
 
 func (u *UserLoginDAO) IsPasswordMatched(username string, password string) (UserLogin, error) {

@@ -7,8 +7,8 @@ type CreateResponse struct {
 	StatusMsg  string
 }
 
-func NewCreateTaskFlow(title, describe string) (*CreateResponse, error) {
-	return (&CreateTaskFlow{Title: title, Describe: describe}).Do()
+func NewCreateTaskFlow(title, describe string, userId uint) (*CreateResponse, error) {
+	return (&CreateTaskFlow{Title: title, Describe: describe, UserInfoID: userId}).Do()
 }
 
 type CreateTaskFlow struct {
@@ -20,9 +20,6 @@ type CreateTaskFlow struct {
 }
 
 func (c *CreateTaskFlow) Do() (*CreateResponse, error) {
-
-	// 填充 UserInfoID
-	c.UserInfoID = 2
 
 	task := model.Task{UserInfoID: c.UserInfoID, Title: c.Title, Describe: c.Describe, Status: c.Status}
 

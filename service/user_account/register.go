@@ -75,7 +75,10 @@ func (r *RegisterFlow) updateData() error {
 
 	// 判断用户是否存在
 	userLoginDAO := model.NewUserLoginDao()
-	if userLoginDAO.IsUserExistByUsername(r.username) {
+	if isExist, err := userLoginDAO.IsUserExistByUsername(r.username); isExist {
+		if err != nil {
+			return err
+		}
 		return errors.New("该用户名已存在")
 	}
 

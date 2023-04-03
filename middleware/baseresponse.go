@@ -5,10 +5,7 @@ type BaseResponse struct {
 	StatusMsg  string `json:"statusMsg,omitempty"`
 }
 
-var baseResponse *BaseResponse
-
-func GetRes(code int32, msg string) *BaseResponse {
-	baseResponse.StatusCode = code
-	baseResponse.StatusMsg = msg
+func GetRes(code int32, msg string) BaseResponse {
+	baseResponse := BaseResponse{StatusCode: code, StatusMsg: msg}
 	return baseResponse
 }

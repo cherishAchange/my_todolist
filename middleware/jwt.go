@@ -70,6 +70,7 @@ func JWTMiddleware() gin.HandlerFunc {
 		}
 
 		token, ok := ParseToken(tokenStr)
+
 		if !ok {
 			ctx.JSON(http.StatusOK, GetRes(403, "鉴权失败"))
 			ctx.Abort()
@@ -81,6 +82,8 @@ func JWTMiddleware() gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
+
+		ctx.Set("userId", token.UserId)
 
 		ctx.Next()
 	}
