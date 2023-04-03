@@ -19,6 +19,11 @@ func InitRouter() *gin.Engine {
 	baseGroup.POST("/user/register", middleware.BindParamsToCTX(), user_account.UserRegisterHandler)
 	baseGroup.POST("/user/login", middleware.BindParamsToCTX(), user_account.UserLoginHandler)
 	baseGroup.POST("/task/create", middleware.JWTMiddleware(), tasks.CreateTasks)
+	baseGroup.POST("/task/follow", middleware.JWTMiddleware(), tasks.FollowTask)
+	baseGroup.POST("/query/getAllTasks", middleware.JWTMiddleware(), tasks.QueryAllTasks)
+	baseGroup.POST("/query/getOwnTasks", middleware.JWTMiddleware(), tasks.QueryTasksByOwner)
+	baseGroup.POST("/query/getFollowed", middleware.JWTMiddleware(), tasks.QueryTasksByFollower)
+	baseGroup.POST("/query/getUsers", middleware.JWTMiddleware(), tasks.QueryUsersByTaskId)
 
 	return r
 }

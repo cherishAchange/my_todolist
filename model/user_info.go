@@ -43,3 +43,10 @@ func (u *UserInfoDAO) AddUserInfo(userInfo *UserInfo) error {
 
 	return DB.Create(userInfo).Error
 }
+
+func (u *UserInfoDAO) GetUsersByTaskId(taskId uint) ([]UserInfo, error) {
+	users := []UserInfo{}
+	err := DB.Where("id IN (?)", DB.Table("user_follow_tasks").Select("user_info_id").Where("task_id = ?", taskId)).Find(&users).Error
+
+	return users, err
+}

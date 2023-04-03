@@ -2,12 +2,12 @@ package takes
 
 import "my_todolist/model"
 
-type CreateResponse struct {
+type TaskResponse struct {
 	StatusCode int16
 	StatusMsg  string
 }
 
-func NewCreateTaskFlow(title, describe string, userId uint) (*CreateResponse, error) {
+func NewCreateTaskFlow(title, describe string, userId uint) (*TaskResponse, error) {
 	return (&CreateTaskFlow{Title: title, Describe: describe, UserInfoID: userId}).Do()
 }
 
@@ -19,7 +19,7 @@ type CreateTaskFlow struct {
 	Status      string            `json:"status,omitempty"`
 }
 
-func (c *CreateTaskFlow) Do() (*CreateResponse, error) {
+func (c *CreateTaskFlow) Do() (*TaskResponse, error) {
 
 	task := model.Task{UserInfoID: c.UserInfoID, Title: c.Title, Describe: c.Describe, Status: c.Status}
 
@@ -28,8 +28,8 @@ func (c *CreateTaskFlow) Do() (*CreateResponse, error) {
 	err := taskDao.Create(&task)
 
 	if err != nil {
-		return &CreateResponse{StatusCode: 1, StatusMsg: "创建失败"}, err
+		return &TaskResponse{StatusCode: 1, StatusMsg: "创建失败"}, err
 	}
 
-	return &CreateResponse{StatusCode: 0, StatusMsg: "操作成功"}, nil
+	return &TaskResponse{StatusCode: 0, StatusMsg: "操作成功"}, nil
 }

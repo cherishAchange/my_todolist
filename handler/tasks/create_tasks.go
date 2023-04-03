@@ -1,7 +1,6 @@
 package tasks
 
 import (
-	"errors"
 	"my_todolist/service/takes"
 	"net/http"
 
@@ -22,12 +21,7 @@ func CreateTasks(c *gin.Context) {
 		return
 	}
 
-	userId, isExist := c.Get("userId")
-
-	if !isExist {
-		c.JSON(http.StatusForbidden, errors.New("用户ID不存在"))
-		return
-	}
+	userId, _ := c.Get("userId")
 
 	response, createErr := takes.NewCreateTaskFlow(createTaskParams.Title, createTaskParams.Describe, userId.(uint))
 
